@@ -1,7 +1,8 @@
+import { Inter } from "next/font/google";
 import { PropsWithChildren } from "react";
 
-type Props = {} & PropsWithChildren;
+const inter = Inter({ subsets: ["latin"] });
 
-export default function BaseLayout({ children }: Props) {
-  return <div>{children}</div>;
+export default function BaseLayout({ children }: PropsWithChildren) {
+  return <div className={`bg-slate-50 ${inter.className}`}>{children}</div>;
 }
