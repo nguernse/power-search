@@ -22,3 +22,17 @@ export function getRandomShortcut(shortcuts: ShortcutMap): string {
 export function randomId(): string {
   return uuidv4();
 }
+
+export function saveLocalState(key: string, value: any): void {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+export function getLocalState(key: string): any {
+  const value = localStorage.getItem(key);
+
+  return value !== null ? JSON.parse(value) : null;
+}
+
+export function removeLocalState(key: string): void {
+  localStorage.removeItem(key);
+}

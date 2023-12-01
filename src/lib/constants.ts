@@ -32,3 +32,5 @@ export const DEFAULT_SETTINGS: SearchSettings = {
   autoSaveHistory: false,
   tabPreference: "_blank",
 };
+
+export const LOCAL_STATE_NAME = "PSState";

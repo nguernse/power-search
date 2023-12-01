@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useSearchDispatch } from "@/lib/context/SearchProvider";
+import { useSearchDispatch } from "@/lib/context/searchContext";
 
 export const AddShortcutSchema = z.object({
   name: z.string().min(1),

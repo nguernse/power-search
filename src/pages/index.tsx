@@ -1,6 +1,6 @@
 import SearchForm from "@/components/search-form";
 import SearchMenu from "@/components/search-menu";
-import { useSearchContext } from "@/lib/context/SearchProvider";
+import { useSearchContext } from "@/lib/context/searchContext";
 import { createSearchUrl, getRandomShortcut } from "@/lib/utils";
 import Link from "next/link";
 

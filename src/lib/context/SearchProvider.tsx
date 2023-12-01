@@ -1,85 +1,27 @@
+import { PropsWithChildren } from "@/types";
 import {
-  PropsWithChildren,
-  SearchSettings,
-  Shortcut,
-  ShortcutMap,
-} from "@/types";
-import { useContext, createContext } from "react";
-import {
-  DEFAULT_SETTINGS,
-  DEFAULT_SHORTCUT,
-  DEFAULT_SHORTCUTS,
-} from "../constants";
-import { randomId } from "../utils";
+  SearchContext,
+  SearchDispatchContext,
+  initialSearchState,
+} from "./searchContext";
+import { searchReducer } from "./searchReducers";
+import { useEffect, useReducer } from "react";
+import { getLocalState } from "../utils";
+import { LOCAL_STATE_NAME } from "../constants";
 
-type SearchState = {
-  selectedShortcut: string;
-  settings: SearchSettings;
-  shortcuts: ShortcutMap;
-  query: string;
-  url: string;
-};
+type SearchProviderProps = {} & PropsWithChildren;
 
-export const initialState: SearchState = {
-  selectedShortcut: DEFAULT_SHORTCUT,
-  url: DEFAULT_SHORTCUTS[DEFAULT_SHORTCUT].url,
-  settings: DEFAULT_SETTINGS,
-  shortcuts: DEFAULT_SHORTCUTS,
-  query: "",
-};
+export default function SearchProvider({ children }: SearchProviderProps) {
+  const [state, dispatch] = useReducer(searchReducer, initialSearchState);
 
-const SearchContext = createContext<SearchState>(initialState);
-export const useSearchContext = () => useContext(SearchContext);
+  useEffect(() => {
+    const initState = getLocalState(LOCAL_STATE_NAME);
 
-type DispatchActions =
-  | { type: "SET_SELECTED_SHORTCUT"; payload: string }
-  | { type: "UPDATE_QUERY"; payload: string }
-  | { type: "ADD_SHORTCUT"; payload: Shortcut };
+    if (initState) {
+      dispatch({ type: "SET_INITIAL_STATE", payload: initState });
+    }
+  }, []);
 
-const SearchDispatchContext = createContext<React.Dispatch<DispatchActions>>(
-  () => {}
-);
-export const useSearchDispatch = () => useContext(SearchDispatchContext);
-
-export function searchReducer(
-  state: SearchState,
-  action: DispatchActions
-): SearchState {
-  switch (action.type) {
-    case "SET_SELECTED_SHORTCUT":
-      return {
-        ...state,
-        selectedShortcut: action.payload,
-        url: state.shortcuts[action.payload].url,
-      };
-    case "UPDATE_QUERY":
-      return {
-        ...state,
-        query: action.payload,
-      };
-    case "ADD_SHORTCUT":
-      return {
-        ...state,
-        shortcuts: {
-          ...state.shortcuts,
-          [randomId()]: action.payload,
-        },
-      };
-    default:
-      return state;
-  }
-}
-
-type SearchProviderProps = {
-  state: SearchState;
-  dispatch: React.Dispatch<DispatchActions>;
-} & PropsWithChildren;
-
-export default function SearchProvider({
-  state,
-  dispatch,
-  children,
-}: SearchProviderProps) {
   return (
     <SearchContext.Provider value={state}>
       <SearchDispatchContext.Provider value={dispatch}>

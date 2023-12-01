@@ -7,6 +7,7 @@ import {
   LightningBoltIcon,
   MixerHorizontalIcon,
   PlusIcon,
+  ResetIcon,
 } from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
@@ -32,11 +33,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import AddShortcutDialog from "./add-shortcut-dialog";
 import {
   useSearchContext,
   useSearchDispatch,
-} from "@/lib/context/SearchProvider";
-import AddShortcutDialog from "./add-shortcut-dialog";
+} from "@/lib/context/searchContext";
 
 export default function SearchMenu() {
   const { selectedShortcut, shortcuts } = useSearchContext();
@@ -127,6 +128,17 @@ export default function SearchMenu() {
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onSelect={(e) => {
+            e.preventDefault();
+            dispatch({ type: "RESET" });
+            setOpen(false);
+          }}
+        >
+          <ResetIcon className="mr-2 h-4 w-4" />
+          Clear session
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
