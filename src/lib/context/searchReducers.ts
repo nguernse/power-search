@@ -1,12 +1,11 @@
-import { Shortcut } from "@/types";
+import { Shortcut, ShortcutWithoutId } from "@/types";
 import { randomId, removeLocalState, saveLocalState } from "../utils";
 import { SearchState, initialSearchState } from "./searchContext";
 import { LOCAL_STATE_NAME } from "../constants";
 
 export type SearchActions =
-  | { type: "SET_SELECTED_SHORTCUT"; payload: string }
-  | { type: "UPDATE_QUERY"; payload: string }
-  | { type: "ADD_SHORTCUT"; payload: Shortcut }
+  | { type: "SET_SELECTED_SHORTCUT"; payload: Shortcut }
+  | { type: "ADD_SHORTCUT"; payload: ShortcutWithoutId }
   | { type: "SET_INITIAL_STATE"; payload: SearchState }
   | { type: "RESET" };
 
@@ -18,11 +17,8 @@ export function searchReducer(
     case "SET_SELECTED_SHORTCUT":
       state = setSelectedShortcut(state, action.payload);
       break;
-    case "UPDATE_QUERY":
-      state = updateQuery(state, action.payload);
-      break;
     case "ADD_SHORTCUT":
-      state = addShortcut(state, action.payload as Shortcut);
+      state = addShortcut(state, action.payload);
       break;
     case "SET_INITIAL_STATE":
       return action.payload;
@@ -39,27 +35,29 @@ export function searchReducer(
   return state;
 }
 
-function setSelectedShortcut(state: SearchState, payload: string): SearchState {
+function setSelectedShortcut(
+  state: SearchState,
+  payload: Shortcut
+): SearchState {
   return {
     ...state,
     selectedShortcut: payload,
-    url: state.shortcuts[payload].url,
+    url: payload.url,
   };
 }
 
-function updateQuery(state: SearchState, payload: string): SearchState {
+function addShortcut(
+  state: SearchState,
+  payload: ShortcutWithoutId
+): SearchState {
   return {
     ...state,
-    query: payload,
-  };
-}
-
-function addShortcut(state: SearchState, payload: Shortcut): SearchState {
-  return {
-    ...state,
-    shortcuts: {
+    shortcuts: [
       ...state.shortcuts,
-      [randomId()]: payload,
-    },
+      {
+        ...payload,
+        id: `${payload.name}-${randomId()}`,
+      },
+    ],
   };
 }

@@ -45,7 +45,7 @@ export default function SearchMenu() {
   const [open, setOpen] = useState(false);
 
   return (
-    <DropdownMenu open={open} onOpenChange={setOpen}>
+    <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm">
           <DotsVerticalIcon className="mr-1 h-4 w-4" />
@@ -59,7 +59,7 @@ export default function SearchMenu() {
             <div className="rounded-full bg-emerald-600 mr-2">
               <CheckCircledIcon className="h-4 w-4 text-white" />
             </div>
-            {shortcuts[selectedShortcut].name}
+            {selectedShortcut.name}
           </DropdownMenuItem>
           <AddShortcutDialog onCancel={() => setOpen(false)}>
             <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
@@ -81,14 +81,14 @@ export default function SearchMenu() {
                 <CommandList>
                   <CommandEmpty>No shortcut found.</CommandEmpty>
                   <CommandGroup>
-                    {Object.keys(shortcuts).map((shortcut) => (
+                    {shortcuts.map((shortcut) => (
                       <CommandItem
-                        key={shortcut}
-                        value={shortcut}
+                        key={shortcut.id}
+                        value={shortcut.id}
                         onSelect={(value) => {
                           dispatch({
                             type: "SET_SELECTED_SHORTCUT",
-                            payload: value,
+                            payload: shortcut,
                           });
                           setOpen(false);
                         }}
@@ -96,14 +96,14 @@ export default function SearchMenu() {
                         <div
                           className={cn(
                             "mr-2 bg-emerald-600 rounded-full",
-                            selectedShortcut === shortcut
+                            selectedShortcut.id === shortcut.id
                               ? "opacity-100"
                               : "opacity-0"
                           )}
                         >
                           <CheckCircledIcon className="h-4 w-4 text-white" />
                         </div>
-                        {shortcuts[shortcut].name}
+                        {shortcut.name}
                       </CommandItem>
                     ))}
                   </CommandGroup>

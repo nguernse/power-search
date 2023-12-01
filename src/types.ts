@@ -11,7 +11,9 @@ export type SearchSettings = {
 };
 
 export type Shortcut = {
+  id: string;
   name: string;
   url: string;
 };
+export type ShortcutWithoutId = Omit<Shortcut, "id">;
 export type ShortcutMap = Record<string, Shortcut>;

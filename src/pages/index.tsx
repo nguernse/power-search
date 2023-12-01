@@ -1,14 +1,14 @@
 import SearchForm from "@/components/search-form";
 import SearchMenu from "@/components/search-menu";
 import { useSearchContext } from "@/lib/context/searchContext";
-import { createSearchUrl, getRandomShortcut } from "@/lib/utils";
+import { createSearchUrl, getRandomShortcutUrl } from "@/lib/utils";
 import Link from "next/link";
 
 export default function Home() {
   const state = useSearchContext();
 
   const handleSubmit = (query: string, isSurprise = false) => {
-    const url = isSurprise ? getRandomShortcut(state.shortcuts) : state.url;
+    const url = isSurprise ? getRandomShortcutUrl(state.shortcuts) : state.url;
     const searchUrl = createSearchUrl(url, query);
 
     window.open(searchUrl, state.settings.tabPreference);

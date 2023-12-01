@@ -1,4 +1,4 @@
-import { SearchSettings, ShortcutMap } from "@/types";
+import { SearchSettings, Shortcut } from "@/types";
 import { useContext, createContext } from "react";
 import {
   DEFAULT_SETTINGS,
@@ -10,10 +10,9 @@ import { SearchActions } from "./searchReducers";
 import { getLocalState } from "../utils";
 
 export type SearchState = {
-  selectedShortcut: string;
+  selectedShortcut: Shortcut;
   settings: SearchSettings;
-  shortcuts: ShortcutMap;
-  query: string;
+  shortcuts: Shortcut[];
   url: string;
 };
 
@@ -22,10 +21,9 @@ export const getInitialSearchState = (): SearchState => {
 };
 export const initialSearchState: SearchState = {
   selectedShortcut: DEFAULT_SHORTCUT,
-  url: DEFAULT_SHORTCUTS[DEFAULT_SHORTCUT].url,
+  url: DEFAULT_SHORTCUT.url,
   settings: DEFAULT_SETTINGS,
   shortcuts: DEFAULT_SHORTCUTS,
-  query: "",
 };
 
 export const SearchContext = createContext<SearchState>(initialSearchState);
