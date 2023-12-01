@@ -13,7 +13,7 @@ export const DEFAULT_SHORTCUTS: ShortcutMap = {
   },
   bing: {
     name: "Bing",
-    url: `https://bing.com/?search?q=${QUERY_SYMBOL}`,
+    url: `https://www.bing.com/search?q=${QUERY_SYMBOL}`,
   },
   youtube: {
     name: "YouTube",

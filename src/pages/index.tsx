@@ -1,4 +1,5 @@
-import SearchForm, { SearchSchema } from "@/components/search-form";
+import SearchForm from "@/components/search-form";
+import { SearchMenu } from "@/components/search-menu";
 import { useSearchContext } from "@/lib/context/SearchProvider";
 import { createSearchUrl, getRandomShortcut } from "@/lib/utils";
 import Link from "next/link";
@@ -20,7 +21,10 @@ export default function Home() {
           <h1 className="mb-10 text-5xl font-bold text-center">
             Power <span className="text-orange-600">Search</span>
           </h1>
-          <section>
+          <section className="space-y-1">
+            <div className="text-right">
+              <SearchMenu />
+            </div>
             <SearchForm onSubmit={handleSubmit} />
           </section>
         </header>
