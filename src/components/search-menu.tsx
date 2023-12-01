@@ -6,6 +6,7 @@ import {
   DotsVerticalIcon,
   LightningBoltIcon,
   MixerHorizontalIcon,
+  PlusIcon,
 } from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
@@ -35,8 +36,9 @@ import {
   useSearchContext,
   useSearchDispatch,
 } from "@/lib/context/SearchProvider";
+import AddShortcutDialog from "./add-shortcut-dialog";
 
-export function SearchMenu() {
+export default function SearchMenu() {
   const { selectedShortcut, shortcuts } = useSearchContext();
   const dispatch = useSearchDispatch();
   const [open, setOpen] = useState(false);
@@ -58,6 +60,12 @@ export function SearchMenu() {
             </div>
             {shortcuts[selectedShortcut].name}
           </DropdownMenuItem>
+          <AddShortcutDialog onCancel={() => setOpen(false)}>
+            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+              <PlusIcon className="mr-2 h-4 w-4" />
+              Add Shortcut
+            </DropdownMenuItem>
+          </AddShortcutDialog>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
               <LightningBoltIcon className="mr-2 h-4 w-4" />

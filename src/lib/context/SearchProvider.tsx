@@ -1,10 +1,16 @@
-import { PropsWithChildren, SearchSettings, ShortcutMap } from "@/types";
+import {
+  PropsWithChildren,
+  SearchSettings,
+  Shortcut,
+  ShortcutMap,
+} from "@/types";
 import { useContext, createContext } from "react";
 import {
   DEFAULT_SETTINGS,
   DEFAULT_SHORTCUT,
   DEFAULT_SHORTCUTS,
 } from "../constants";
+import { randomId } from "../utils";
 
 type SearchState = {
   selectedShortcut: string;
@@ -27,7 +33,8 @@ export const useSearchContext = () => useContext(SearchContext);
 
 type DispatchActions =
   | { type: "SET_SELECTED_SHORTCUT"; payload: string }
-  | { type: "UPDATE_QUERY"; payload: string };
+  | { type: "UPDATE_QUERY"; payload: string }
+  | { type: "ADD_SHORTCUT"; payload: Shortcut };
 
 const SearchDispatchContext = createContext<React.Dispatch<DispatchActions>>(
   () => {}
@@ -49,6 +56,14 @@ export function searchReducer(
       return {
         ...state,
         query: action.payload,
+      };
+    case "ADD_SHORTCUT":
+      return {
+        ...state,
+        shortcuts: {
+          ...state.shortcuts,
+          [randomId()]: action.payload,
+        },
       };
     default:
       return state;
