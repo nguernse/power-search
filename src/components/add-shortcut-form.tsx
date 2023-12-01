@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useSearchDispatch } from "@/lib/context/searchContext";
+import { Shortcut } from "@/types";
 
 export const AddShortcutSchema = z.object({
   name: z.string().min(1),
@@ -21,20 +22,26 @@ export const AddShortcutSchema = z.object({
 
 type Props = {
   onSubmit: () => void;
+  shortcut?: Shortcut;
 };
 
-export default function AddShortcutForm({ onSubmit }: Props) {
+export default function AddShortcutForm({ onSubmit, shortcut }: Props) {
   const dispatch = useSearchDispatch();
   const form = useForm<z.infer<typeof AddShortcutSchema>>({
     resolver: zodResolver(AddShortcutSchema),
     defaultValues: {
-      name: "",
-      url: "",
+      name: shortcut?.name ?? "",
+      url: shortcut?.url ?? "",
     },
   });
 
   const handleSubmit = (values: z.infer<typeof AddShortcutSchema>) => {
-    dispatch({ type: "ADD_SHORTCUT", payload: values });
+    if (shortcut) {
+      dispatch({ type: "EDIT_SHORTCUT", payload: { ...shortcut, ...values } });
+    } else {
+      dispatch({ type: "ADD_SHORTCUT", payload: values });
+    }
+
     form.reset();
     onSubmit();
   };

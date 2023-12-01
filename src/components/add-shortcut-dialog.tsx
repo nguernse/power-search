@@ -6,16 +6,21 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { PlusIcon } from "@radix-ui/react-icons";
+import { Pencil1Icon, PlusIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import AddShortcutForm from "./add-shortcut-form";
-import { PropsWithChildren } from "@/types";
+import { PropsWithChildren, Shortcut } from "@/types";
 
 type Props = {
   onCancel?: () => void;
+  shortcut?: Shortcut;
 } & PropsWithChildren;
 
-export default function AddShortcutDialog({ children, onCancel }: Props) {
+export default function AddShortcutDialog({
+  children,
+  onCancel,
+  shortcut,
+}: Props) {
   const [open, setOpen] = useState(false);
 
   const handleSubmit = () => {
@@ -28,19 +33,28 @@ export default function AddShortcutDialog({ children, onCancel }: Props) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {children ?? (
-          <Button variant="outline">
-            <PlusIcon className="h-4 w-4 mr-2" />
-            Add shortcut
+          <Button variant="outline" size="sm">
+            {shortcut ? (
+              <>
+                <Pencil1Icon className="h-4 w-4 mr-2" />
+                Edit shortcut
+              </>
+            ) : (
+              <>
+                <PlusIcon className="h-4 w-4 mr-2" />
+                Add shortcut
+              </>
+            )}
           </Button>
         )}
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add Shortcut</DialogTitle>
+          <DialogTitle>{shortcut ? "Edit" : "Add"} Shortcut</DialogTitle>
         </DialogHeader>
 
-        <AddShortcutForm onSubmit={handleSubmit} />
+        <AddShortcutForm onSubmit={handleSubmit} shortcut={shortcut} />
       </DialogContent>
     </Dialog>
   );

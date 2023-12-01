@@ -11,9 +11,9 @@ import { getLocalState } from "../utils";
 
 export type SearchState = {
   selectedShortcut: Shortcut;
-  settings: SearchSettings;
   shortcuts: Shortcut[];
   url: string;
+  settings: SearchSettings;
 };
 
 export const getInitialSearchState = (): SearchState => {
@@ -21,7 +21,7 @@ export const getInitialSearchState = (): SearchState => {
 };
 export const initialSearchState: SearchState = {
   selectedShortcut: DEFAULT_SHORTCUT,
-  url: DEFAULT_SHORTCUT.url,
+  url: DEFAULT_SHORTCUT?.url,
   settings: DEFAULT_SETTINGS,
   shortcuts: DEFAULT_SHORTCUTS,
 };

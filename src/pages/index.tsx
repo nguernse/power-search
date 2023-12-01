@@ -1,3 +1,4 @@
+import EmptyShortcuts from "@/components/EmptyShortcuts";
 import SearchForm from "@/components/search-form";
 import SearchMenu from "@/components/search-menu";
 import { useSearchContext } from "@/lib/context/searchContext";
@@ -21,12 +22,16 @@ export default function Home() {
           <h1 className="mb-10 text-5xl font-bold text-center">
             Power <span className="text-orange-600">Search</span>
           </h1>
-          <section className="space-y-1">
-            <div className="text-right">
-              <SearchMenu />
-            </div>
-            <SearchForm onSubmit={handleSubmit} />
-          </section>
+          {state.shortcuts.length > 0 ? (
+            <section className="space-y-1">
+              <div className="text-right">
+                <SearchMenu />
+              </div>
+              <SearchForm onSubmit={handleSubmit} />
+            </section>
+          ) : (
+            <EmptyShortcuts />
+          )}
         </header>
 
         <section className="text-center">
