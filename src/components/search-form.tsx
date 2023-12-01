@@ -11,7 +11,7 @@ export const SearchSchema = z.object({
 });
 
 type Props = {
-  onSubmit: (values: z.infer<typeof SearchSchema>) => void;
+  onSubmit: (query: string, isSurprise?: boolean) => void;
 };
 
 export default function SearchForm({ onSubmit }: Props) {
@@ -22,9 +22,17 @@ export default function SearchForm({ onSubmit }: Props) {
     },
   });
 
+  const handleSubmit = ({ query }: z.infer<typeof SearchSchema>) => {
+    onSubmit(query);
+  };
+
+  const onSurpriseMe = () => {
+    onSubmit(form.getValues("query"), true);
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="query"
@@ -48,7 +56,7 @@ export default function SearchForm({ onSubmit }: Props) {
           <Button type="submit" variant="outline">
             Search
           </Button>
-          <Button type="button" variant="outline">
+          <Button type="button" variant="outline" onClick={onSurpriseMe}>
             Surprise me
           </Button>
         </section>

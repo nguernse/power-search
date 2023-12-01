@@ -1,16 +1,16 @@
 import SearchForm, { SearchSchema } from "@/components/search-form";
 import { useSearchContext } from "@/lib/context/SearchProvider";
-import { createSearchUrl } from "@/lib/utils";
+import { createSearchUrl, getRandomShortcut } from "@/lib/utils";
 import Link from "next/link";
-import * as z from "zod";
 
 export default function Home() {
   const state = useSearchContext();
 
-  const handleSubmit = ({ query }: z.infer<typeof SearchSchema>) => {
-    const url = createSearchUrl(state.url, query);
+  const handleSubmit = (query: string, isSurprise = false) => {
+    const url = isSurprise ? getRandomShortcut(state.shortcuts) : state.url;
+    const searchUrl = createSearchUrl(url, query);
 
-    window.open(url, state.settings.tabPreference);
+    window.open(searchUrl, state.settings.tabPreference);
   };
 
   return (
