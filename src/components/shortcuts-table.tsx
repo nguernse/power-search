@@ -15,6 +15,7 @@ import AddShortcutDialog from "./add-shortcut-dialog";
 import { Button } from "./ui/button";
 import { Pencil1Icon, PlusIcon, TrashIcon } from "@radix-ui/react-icons";
 import EmptyShortcuts from "./EmptyShortcuts";
+import { Switch } from "./ui/switch";
 
 export default function ShortcutsTable() {
   const { shortcuts } = useSearchContext();
@@ -40,7 +41,15 @@ export default function ShortcutsTable() {
         {shortcuts.length > 0 ? (
           shortcuts.map((shortcut) => (
             <TableRow key={shortcut.id}>
-              <TableCell>{shortcut.name}</TableCell>
+              <TableCell className="flex items-center gap-x-2">
+                <Switch
+                  checked={shortcut.isSelected}
+                  onCheckedChange={() =>
+                    dispatch({ type: "SELECT_SHORTCUT", payload: shortcut })
+                  }
+                />
+                {shortcut.name}
+              </TableCell>
               <TableCell>{shortcut.url}</TableCell>
               <TableCell className="space-x-2">
                 <AddShortcutDialog shortcut={shortcut}>
@@ -53,7 +62,7 @@ export default function ShortcutsTable() {
                   variant="destructive"
                   size="sm"
                   onClick={() =>
-                    dispatch({ type: "DELETE_SHORTCUT", payload: shortcut.id })
+                    dispatch({ type: "DELETE_SHORTCUT", payload: shortcut })
                   }
                 >
                   <TrashIcon className="w-5 h-5" />

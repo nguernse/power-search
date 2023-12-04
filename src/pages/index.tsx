@@ -2,16 +2,21 @@ import EmptyShortcuts from "@/components/EmptyShortcuts";
 import SearchForm from "@/components/search-form";
 import SearchMenu from "@/components/search-menu";
 import { useSearchContext } from "@/lib/context/searchContext";
-import { createSearchUrl, getRandomShortcutUrl } from "@/lib/utils";
+import {
+  createSearchUrl,
+  getRandomShortcutUrl,
+  getSelectedShortcut,
+} from "@/lib/utils";
 import Link from "next/link";
 
 export default function Home() {
   const state = useSearchContext();
+  const selectedShortcut = getSelectedShortcut(state.shortcuts);
 
   const handleSubmit = (query: string, isSurprise = false) => {
     const url = isSurprise
       ? getRandomShortcutUrl(state.shortcuts)
-      : state.selectedShortcut.url;
+      : selectedShortcut.url;
     const searchUrl = createSearchUrl(url, query);
 
     window.open(searchUrl, state.settings.tabPreference);

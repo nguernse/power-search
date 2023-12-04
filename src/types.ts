@@ -14,6 +14,7 @@ export type Shortcut = {
   id: string;
   name: string;
   url: string;
+  isSelected: boolean;
 };
 export type ShortcutWithoutId = Omit<Shortcut, "id">;
 export type ShortcutMap = Record<string, Shortcut>;

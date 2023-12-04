@@ -44,3 +44,7 @@ export function getRandomShortcutUrl(shortcuts: Shortcut[]): Shortcut["url"] {
 
   return shortcut.url;
 }
+
+export function getSelectedShortcut(shortcuts: Shortcut[]): Shortcut {
+  return shortcuts.find((shortcut) => shortcut.isSelected) as Shortcut;
+}

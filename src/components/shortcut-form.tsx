@@ -12,10 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  useSearchContext,
-  useSearchDispatch,
-} from "@/lib/context/searchContext";
+import { useSearchDispatch } from "@/lib/context/searchContext";
 import { Switch } from "./ui/switch";
 import { QUERY_SYMBOL } from "@/lib/constants";
 import { Shortcut } from "@/types";
@@ -23,7 +20,7 @@ import { Shortcut } from "@/types";
 const ShortcutSchema = z.object({
   name: z.string().min(1),
   url: z.string().min(1),
-  isDefault: z.boolean(),
+  isSelected: z.boolean(),
 });
 
 type Props = {
@@ -33,36 +30,29 @@ type Props = {
 
 export default function ShortcutForm({ onSubmit, shortcut }: Props) {
   const dispatch = useSearchDispatch();
-  const { selectedShortcut } = useSearchContext();
-  const isSelectedShortcut = selectedShortcut.id === shortcut?.id;
 
   const form = useForm<z.infer<typeof ShortcutSchema>>({
     resolver: zodResolver(ShortcutSchema),
     defaultValues: {
       name: shortcut?.name ?? "",
       url: shortcut?.url ?? "",
-      isDefault: isSelectedShortcut,
+      isSelected: shortcut?.isSelected,
     },
   });
 
   const handleSubmit = (values: z.infer<typeof ShortcutSchema>) => {
-    const { isDefault, ...newShortcut } = values;
-
     if (shortcut) {
       dispatch({
         type: "EDIT_SHORTCUT",
         payload: {
-          shortcut: {
-            ...shortcut,
-            ...newShortcut,
-          },
-          isDefault,
+          ...shortcut,
+          ...values,
         },
       });
     } else {
       dispatch({
         type: "ADD_SHORTCUT",
-        payload: { shortcut: newShortcut as Shortcut, isDefault },
+        payload: values,
       });
     }
 
@@ -108,7 +98,7 @@ export default function ShortcutForm({ onSubmit, shortcut }: Props) {
 
         <FormField
           control={form.control}
-          name="isDefault"
+          name="isSelected"
           render={({ field }) => (
             <FormItem>
               <div className="space-y-0.5">
@@ -119,7 +109,7 @@ export default function ShortcutForm({ onSubmit, shortcut }: Props) {
               </div>
               <FormControl>
                 <Switch
-                  disabled={isSelectedShortcut}
+                  disabled={shortcut?.isSelected}
                   checked={field.value}
                   onCheckedChange={field.onChange}
                 />

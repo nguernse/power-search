@@ -32,7 +32,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn, getSelectedShortcut } from "@/lib/utils";
 import AddShortcutDialog from "./add-shortcut-dialog";
 import {
   useSearchContext,
@@ -40,7 +40,8 @@ import {
 } from "@/lib/context/searchContext";
 
 export default function SearchMenu() {
-  const { selectedShortcut, shortcuts } = useSearchContext();
+  const { shortcuts } = useSearchContext();
+  const selectedShortcut = getSelectedShortcut(shortcuts);
   const dispatch = useSearchDispatch();
   const [open, setOpen] = useState(false);
 
@@ -87,7 +88,7 @@ export default function SearchMenu() {
                         value={shortcut.id}
                         onSelect={(value) => {
                           dispatch({
-                            type: "SET_SELECTED_SHORTCUT",
+                            type: "SELECT_SHORTCUT",
                             payload: shortcut,
                           });
                           setOpen(false);
@@ -96,9 +97,7 @@ export default function SearchMenu() {
                         <div
                           className={cn(
                             "mr-2 bg-emerald-600 rounded-full",
-                            selectedShortcut.id === shortcut.id
-                              ? "opacity-100"
-                              : "opacity-0"
+                            shortcut.isSelected ? "opacity-100" : "opacity-0"
                           )}
                         >
                           <CheckCircledIcon className="h-4 w-4 text-white" />
