@@ -8,6 +8,11 @@ export const DEFAULT_SHORTCUTS: Shortcut[] = [
     url: `https://google.com/search?q=${QUERY_SYMBOL}`,
   },
   {
+    id: "duckduckgo",
+    name: "DuckDuckGo",
+    url: `https://duckduckgo.com/?q=${QUERY_SYMBOL}`,
+  },
+  {
     id: "wikipedia",
     name: "Wikipedia",
     url: `https://wikipedia.org/w/index.php?search=${QUERY_SYMBOL}`,
