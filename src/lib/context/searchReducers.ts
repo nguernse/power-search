@@ -5,8 +5,14 @@ import { DEFAULT_SHORTCUTS, LOCAL_STATE_NAME } from "../constants";
 
 export type SearchActions =
   | { type: "SET_SELECTED_SHORTCUT"; payload: Shortcut }
-  | { type: "ADD_SHORTCUT"; payload: ShortcutWithoutId }
-  | { type: "EDIT_SHORTCUT"; payload: Shortcut }
+  | {
+      type: "ADD_SHORTCUT";
+      payload: { shortcut: ShortcutWithoutId; isDefault: boolean };
+    }
+  | {
+      type: "EDIT_SHORTCUT";
+      payload: { shortcut: Shortcut; isDefault: boolean };
+    }
   | { type: "SET_INITIAL_STATE"; payload: SearchState }
   | { type: "DELETE_SHORTCUT"; payload: Shortcut["id"] }
   | { type: "POPULATE_WITH_DEFAULTS" }
@@ -54,47 +60,50 @@ function setSelectedShortcut(
   return {
     ...state,
     selectedShortcut: payload,
-    url: payload.url,
   };
 }
 
 function addShortcut(
   state: SearchState,
-  payload: ShortcutWithoutId
+  payload: {
+    shortcut: ShortcutWithoutId;
+    isDefault: boolean;
+  }
 ): SearchState {
   let { selectedShortcut } = state;
   const newItem = {
-    ...payload,
-    id: `${payload.name}-${randomId()}`,
+    ...payload.shortcut,
+    id: `${payload.shortcut.name}-${randomId()}`,
   };
 
-  if (selectedShortcut === undefined) {
+  if (selectedShortcut === undefined || payload.isDefault) {
     selectedShortcut = newItem;
   }
 
   return {
     ...state,
     selectedShortcut,
-    url: selectedShortcut.url,
     shortcuts: [...state.shortcuts, newItem],
   };
 }
 
-function editShortcut(state: SearchState, payload: Shortcut): SearchState {
+function editShortcut(
+  state: SearchState,
+  payload: { shortcut: Shortcut; isDefault: boolean }
+): SearchState {
   let { selectedShortcut } = state;
 
   // if editing selected shortcut, update selectedShortcut
-  if (payload.id === selectedShortcut.id) {
-    selectedShortcut = payload;
+  if (payload.shortcut.id === selectedShortcut.id || payload.isDefault) {
+    selectedShortcut = payload.shortcut;
   }
 
   return {
     ...state,
     selectedShortcut,
-    url: selectedShortcut.url,
     shortcuts: state.shortcuts.map((item) => {
-      if (item.id === payload.id) {
-        return payload;
+      if (item.id === payload.shortcut.id) {
+        return payload.shortcut;
       }
 
       return item;
@@ -118,7 +127,6 @@ function deleteShortcut(
   return {
     ...state,
     selectedShortcut,
-    url: selectedShortcut?.url,
     shortcuts: state.shortcuts.filter((item) => item.id !== payload),
   };
 }
@@ -126,12 +134,10 @@ function deleteShortcut(
 function populateWithDefaults(state: SearchState): SearchState {
   const shortcuts = DEFAULT_SHORTCUTS;
   const selectedShortcut = shortcuts[0];
-  const url = selectedShortcut.url;
 
   return {
     ...state,
     shortcuts,
     selectedShortcut,
-    url,
   };
 }

@@ -8,8 +8,8 @@ import {
 } from "@/components/ui/dialog";
 import { Pencil1Icon, PlusIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
-import AddShortcutForm from "./add-shortcut-form";
 import { PropsWithChildren, Shortcut } from "@/types";
+import ShortcutForm from "./shortcut-form";
 
 type Props = {
   onCancel?: () => void;
@@ -54,7 +54,7 @@ export default function AddShortcutDialog({
           <DialogTitle>{shortcut ? "Edit" : "Add"} Shortcut</DialogTitle>
         </DialogHeader>
 
-        <AddShortcutForm onSubmit={handleSubmit} shortcut={shortcut} />
+        <ShortcutForm onSubmit={handleSubmit} shortcut={shortcut} />
       </DialogContent>
     </Dialog>
   );

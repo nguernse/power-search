@@ -12,12 +12,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useSearchDispatch } from "@/lib/context/searchContext";
+import {
+  useSearchContext,
+  useSearchDispatch,
+} from "@/lib/context/searchContext";
+import { Switch } from "./ui/switch";
+import { QUERY_SYMBOL } from "@/lib/constants";
 import { Shortcut } from "@/types";
 
-export const AddShortcutSchema = z.object({
+const ShortcutSchema = z.object({
   name: z.string().min(1),
   url: z.string().min(1),
+  isDefault: z.boolean(),
 });
 
 type Props = {
@@ -25,21 +31,39 @@ type Props = {
   shortcut?: Shortcut;
 };
 
-export default function AddShortcutForm({ onSubmit, shortcut }: Props) {
+export default function ShortcutForm({ onSubmit, shortcut }: Props) {
   const dispatch = useSearchDispatch();
-  const form = useForm<z.infer<typeof AddShortcutSchema>>({
-    resolver: zodResolver(AddShortcutSchema),
+  const { selectedShortcut } = useSearchContext();
+  const isSelectedShortcut = selectedShortcut.id === shortcut?.id;
+
+  const form = useForm<z.infer<typeof ShortcutSchema>>({
+    resolver: zodResolver(ShortcutSchema),
     defaultValues: {
       name: shortcut?.name ?? "",
       url: shortcut?.url ?? "",
+      isDefault: isSelectedShortcut,
     },
   });
 
-  const handleSubmit = (values: z.infer<typeof AddShortcutSchema>) => {
+  const handleSubmit = (values: z.infer<typeof ShortcutSchema>) => {
+    const { isDefault, ...newShortcut } = values;
+
     if (shortcut) {
-      dispatch({ type: "EDIT_SHORTCUT", payload: { ...shortcut, ...values } });
+      dispatch({
+        type: "EDIT_SHORTCUT",
+        payload: {
+          shortcut: {
+            ...shortcut,
+            ...newShortcut,
+          },
+          isDefault,
+        },
+      });
     } else {
-      dispatch({ type: "ADD_SHORTCUT", payload: values });
+      dispatch({
+        type: "ADD_SHORTCUT",
+        payload: { shortcut: newShortcut as Shortcut, isDefault },
+      });
     }
 
     form.reset();
@@ -74,10 +98,32 @@ export default function AddShortcutForm({ onSubmit, shortcut }: Props) {
               </FormControl>
               <FormDescription className="text-xs">
                 When adding a URL, replace the search query with{" "}
-                <strong>%Q</strong>. For example,
-                https://www.google.com/search?q=<strong>%Q</strong>.
+                <strong>{QUERY_SYMBOL}</strong>. For example,
+                https://www.google.com/search?q=<strong>{QUERY_SYMBOL}</strong>.
               </FormDescription>
               <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="isDefault"
+          render={({ field }) => (
+            <FormItem>
+              <div className="space-y-0.5">
+                <FormLabel className="text-base">Default shortcut</FormLabel>
+                <FormDescription>
+                  Make this the default shortcut.
+                </FormDescription>
+              </div>
+              <FormControl>
+                <Switch
+                  disabled={isSelectedShortcut}
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
             </FormItem>
           )}
         />

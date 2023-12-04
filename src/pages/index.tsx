@@ -9,7 +9,9 @@ export default function Home() {
   const state = useSearchContext();
 
   const handleSubmit = (query: string, isSurprise = false) => {
-    const url = isSurprise ? getRandomShortcutUrl(state.shortcuts) : state.url;
+    const url = isSurprise
+      ? getRandomShortcutUrl(state.shortcuts)
+      : state.selectedShortcut.url;
     const searchUrl = createSearchUrl(url, query);
 
     window.open(searchUrl, state.settings.tabPreference);
