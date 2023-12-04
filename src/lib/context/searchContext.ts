@@ -1,4 +1,4 @@
-import { SearchSettings, Shortcut } from "@/types";
+import { SearchItem, SearchSettings, Shortcut } from "@/types";
 import { useContext, createContext } from "react";
 import {
   DEFAULT_SETTINGS,
@@ -11,6 +11,7 @@ import { getLocalState } from "../utils";
 export type SearchState = {
   shortcuts: Shortcut[];
   settings: SearchSettings;
+  history: SearchItem[];
 };
 
 export const getInitialSearchState = (): SearchState => {
@@ -19,6 +20,7 @@ export const getInitialSearchState = (): SearchState => {
 export const initialSearchState: SearchState = {
   settings: DEFAULT_SETTINGS,
   shortcuts: DEFAULT_SHORTCUTS,
+  history: [],
 };
 
 export const SearchContext = createContext<SearchState>(initialSearchState);

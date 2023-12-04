@@ -18,3 +18,7 @@ export type Shortcut = {
 };
 export type ShortcutWithoutId = Omit<Shortcut, "id">;
 export type ShortcutMap = Record<string, Shortcut>;
+export type SearchItem = {
+  query: string;
+  url: Shortcut["url"];
+};

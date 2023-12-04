@@ -5,6 +5,8 @@ import { Button } from "./ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import { useSearchContext } from "@/lib/context/searchContext";
+import { getSelectedShortcut } from "@/lib/utils";
 
 export const SearchSchema = z.object({
   query: z.string(),
@@ -15,6 +17,9 @@ type Props = {
 };
 
 export default function SearchForm({ onSubmit }: Props) {
+  const state = useSearchContext();
+  const selectedShortcut = getSelectedShortcut(state.shortcuts);
+  const searchPlaceholder = `What do you want to search for on ${selectedShortcut.name}?`;
   const form = useForm<z.infer<typeof SearchSchema>>({
     resolver: zodResolver(SearchSchema),
     defaultValues: {
@@ -41,7 +46,7 @@ export default function SearchForm({ onSubmit }: Props) {
               <FormControl>
                 <Input
                   type="search"
-                  placeholder="What do you want to search for?"
+                  placeholder={searchPlaceholder}
                   required
                   className="rounded-full"
                   icon={<MagnifyingGlassIcon className="w-5 h-5" />}

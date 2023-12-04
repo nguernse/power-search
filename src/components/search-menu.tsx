@@ -4,6 +4,7 @@ import { useState } from "react";
 import {
   CheckCircledIcon,
   DotsVerticalIcon,
+  LapTimerIcon,
   LightningBoltIcon,
   MixerHorizontalIcon,
   PlusIcon,
@@ -124,6 +125,12 @@ export default function SearchMenu() {
             <MixerHorizontalIcon className="mr-2 h-4 w-4" />
             <Link href="/settings" className="w-full">
               Settings
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <LapTimerIcon className="mr-2 h-4 w-4" />
+            <Link href="/history" className="w-full">
+              History
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>

@@ -1,4 +1,9 @@
-import { Shortcut, ShortcutWithoutId } from "@/types";
+import {
+  SearchItem,
+  SearchSettings,
+  Shortcut,
+  ShortcutWithoutId,
+} from "@/types";
 import { randomId, removeLocalState, saveLocalState } from "../utils";
 import { SearchState, initialSearchState } from "./searchContext";
 import { DEFAULT_SHORTCUTS, LOCAL_STATE_NAME } from "../constants";
@@ -16,6 +21,12 @@ export type SearchActions =
   | { type: "SET_INITIAL_STATE"; payload: SearchState }
   | { type: "DELETE_SHORTCUT"; payload: Shortcut }
   | { type: "POPULATE_WITH_DEFAULTS" }
+  | {
+      type: "UPDATE_AUTO_SAVE_SETTING";
+      payload: SearchSettings["autoSaveHistory"];
+    }
+  | { type: "SAVE_SEARCH_HISTORY"; payload: SearchItem }
+  | { type: "CLEAR_SEARCH_HISTORY" }
   | { type: "RESET" };
 
 export function searchReducer(
@@ -39,6 +50,15 @@ export function searchReducer(
       break;
     case "POPULATE_WITH_DEFAULTS":
       state = populateWithDefaults(state);
+      break;
+    case "UPDATE_AUTO_SAVE_SETTING":
+      state = updateAutoSaveHistory(state, action.payload);
+      break;
+    case "SAVE_SEARCH_HISTORY":
+      state = saveSearchHistory(state, action.payload);
+      break;
+    case "CLEAR_SEARCH_HISTORY":
+      state = clearSearchHistory(state);
       break;
     case "RESET":
       removeLocalState(LOCAL_STATE_NAME);
@@ -119,5 +139,38 @@ function populateWithDefaults(state: SearchState): SearchState {
   return {
     ...state,
     shortcuts,
+  };
+}
+
+function updateAutoSaveHistory(
+  state: SearchState,
+  payload: SearchSettings["autoSaveHistory"]
+): SearchState {
+  const history = payload ? state.history : [];
+
+  return {
+    ...state,
+    history,
+    settings: {
+      ...state.settings,
+      autoSaveHistory: payload,
+    },
+  };
+}
+
+function saveSearchHistory(
+  state: SearchState,
+  payload: SearchItem
+): SearchState {
+  return {
+    ...state,
+    history: [...state.history, payload],
+  };
+}
+
+function clearSearchHistory(state: SearchState): SearchState {
+  return {
+    ...state,
+    history: [],
   };
 }
