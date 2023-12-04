@@ -60,15 +60,6 @@ export default function Home() {
             >
               Manage shortcuts
             </Link>
-
-            {state.history.length > 0 && (
-              <Link
-                className="underline text-blue-500 hover:text-blue-600"
-                href="/history"
-              >
-                View history
-              </Link>
-            )}
           </section>
         </div>
       </main>
