@@ -36,7 +36,7 @@ export default function ShortcutForm({ onSubmit, shortcut }: Props) {
     defaultValues: {
       name: shortcut?.name ?? "",
       url: shortcut?.url ?? "",
-      isSelected: shortcut?.isSelected,
+      isSelected: shortcut?.isSelected || false,
     },
   });
 
@@ -62,7 +62,11 @@ export default function ShortcutForm({ onSubmit, shortcut }: Props) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className="space-y-4"
+        data-testid="shortcut-form"
+      >
         <FormField
           control={form.control}
           name="name"
@@ -70,7 +74,12 @@ export default function ShortcutForm({ onSubmit, shortcut }: Props) {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input type="text" required {...field} />
+                <Input
+                  type="text"
+                  required
+                  {...field}
+                  data-testid="name-input"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -84,7 +93,12 @@ export default function ShortcutForm({ onSubmit, shortcut }: Props) {
             <FormItem>
               <FormLabel>URL</FormLabel>
               <FormControl>
-                <Input type="text" required {...field} />
+                <Input
+                  type="text"
+                  required
+                  {...field}
+                  data-testid="url-input"
+                />
               </FormControl>
               <FormDescription className="text-xs">
                 When adding a URL, replace the search query with{" "}
@@ -126,10 +140,13 @@ export default function ShortcutForm({ onSubmit, shortcut }: Props) {
               form.reset();
               onSubmit();
             }}
+            data-testid="form-cancel-button"
           >
             Cancel
           </Button>
-          <Button type="submit">Save</Button>
+          <Button type="submit" data-testid="form-submit-button">
+            Save
+          </Button>
         </section>
       </form>
     </Form>

@@ -31,9 +31,9 @@ export default function AddShortcutDialog({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild data-testid="add-shortcut-dialog">
+      <DialogTrigger asChild>
         {children ?? (
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" data-testid="dialog-button">
             {shortcut ? (
               <>
                 <Pencil1Icon className="h-4 w-4 mr-2" />
@@ -49,9 +49,11 @@ export default function AddShortcutDialog({
         )}
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>{shortcut ? "Edit" : "Add"} Shortcut</DialogTitle>
+      <DialogContent data-testid="dialog-content" className="sm:max-w-[425px]">
+        <DialogHeader data-testid="dialog-header">
+          <DialogTitle data-testid="dialog-title">
+            {shortcut ? "Edit" : "Add"} Shortcut
+          </DialogTitle>
         </DialogHeader>
 
         <ShortcutForm onSubmit={handleSubmit} shortcut={shortcut} />
