@@ -10,12 +10,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/Table";
+} from "@/components/ui/table";
 import AddShortcutDialog from "./AddShortcutDialog";
-import { Button } from "./ui/Button";
+import { Button } from "./ui/button";
 import { Pencil1Icon, PlusIcon, TrashIcon } from "@radix-ui/react-icons";
 import EmptyShortcuts from "./EmptyShortcuts";
-import { Switch } from "./ui/Switch";
+import { Switch } from "./ui/switch";
 
 export default function ShortcutsTable() {
   const { shortcuts } = useSearchContext();

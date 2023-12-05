@@ -11,7 +11,7 @@ import {
   ResetIcon,
 } from "@radix-ui/react-icons";
 
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -19,7 +19,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/Command";
+} from "@/components/ui/command";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,7 +31,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/components/ui/DropdownMenu";
+} from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { cn, getSelectedShortcut } from "@/lib/utils";
 import AddShortcutDialog from "./AddShortcutDialog";
@@ -117,20 +117,20 @@ export default function SearchMenu() {
         <DropdownMenuGroup>
           <DropdownMenuLabel>Links</DropdownMenuLabel>
           <DropdownMenuItem>
-            <LightningBoltIcon className="mr-2 h-4 w-4" />
             <Link href="/shortcuts" className="w-full">
+              <LightningBoltIcon className="mr-2 h-4 w-4" />
               Manage shortcuts
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <MixerHorizontalIcon className="mr-2 h-4 w-4" />
             <Link href="/settings" className="w-full">
+              <MixerHorizontalIcon className="mr-2 h-4 w-4" />
               Settings
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <LapTimerIcon className="mr-2 h-4 w-4" />
             <Link href="/history" className="w-full">
+              <LapTimerIcon className="mr-2 h-4 w-4" />
               History
             </Link>
           </DropdownMenuItem>

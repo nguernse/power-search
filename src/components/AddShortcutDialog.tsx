@@ -1,11 +1,11 @@
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/Dialog";
+} from "@/components/ui/dialog";
 import { Pencil1Icon, PlusIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import { PropsWithChildren, Shortcut } from "@/types";

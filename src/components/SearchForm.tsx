@@ -1,9 +1,9 @@
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Button } from "./ui/Button";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/Form";
-import { Input } from "@/components/ui/Input";
+import { Button } from "./ui/button";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { useSearchContext } from "@/lib/context/searchContext";
 import { getSelectedShortcut } from "@/lib/utils";
