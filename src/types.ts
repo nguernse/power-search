@@ -4,6 +4,10 @@ export type PropsWithChildren<T = ReactNode> = {
   children?: T;
 };
 
+export type PropsWithClassname = {
+  className?: string;
+};
+
 export type TabPreference = "_self" | "_blank" | "_parent";
 export type SearchSettings = {
   autoSaveHistory: boolean;

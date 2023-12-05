@@ -1,26 +1,21 @@
+import Link from "./Link";
+
 export default function Footer() {
   return (
-    <footer data-testid="footer">
-      <div className="container mx-auto max-w-screen-md">
-        <div className="flex justify-between items-center py-4">
-          <div className="text-sm">
-            <p>
-              Made with{" "}
-              <span role="img" aria-label="love">
-                ❤️
-              </span>{" "}
-              by{" "}
-              <a
-                className="text-blue-500 hover:text-blue-600"
-                href="https://github.com/nguernse"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                @nguernse
-              </a>
-            </p>
-          </div>
-        </div>
+    <footer
+      data-testid="footer"
+      className="bg-slate-100 flex justify-end p-3 text-slate-500"
+    >
+      <div>
+        Made by{" "}
+        <Link
+          href="https://github.com/nguernse"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-slate-500 hover:text-slate-800 no-underline"
+        >
+          @nguernse
+        </Link>
       </div>
     </footer>
   );

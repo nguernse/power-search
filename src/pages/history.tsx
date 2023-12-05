@@ -8,7 +8,7 @@ import {
   useSearchDispatch,
 } from "@/lib/context/searchContext";
 import { CounterClockwiseClockIcon } from "@radix-ui/react-icons";
-import Link from "next/link";
+import Link from "@/components/Link";
 
 export default function History() {
   const { settings, history } = useSearchContext();
@@ -25,13 +25,7 @@ export default function History() {
             <p>View your previous searches here.</p>
             <p>
               If you would like to not track your searches, update your{" "}
-              <Link
-                href="/settings"
-                className="text-blue-500 hover:text-blue-600 underline"
-              >
-                settings
-              </Link>
-              .
+              <Link href="/settings">settings</Link>.
             </p>
           </header>
 

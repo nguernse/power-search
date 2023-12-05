@@ -11,7 +11,7 @@ import {
   getRandomShortcutUrl,
   getSelectedShortcut,
 } from "@/lib/utils";
-import Link from "next/link";
+import Link from "@/components/Link";
 
 export default function Home() {
   const state = useSearchContext();
@@ -39,7 +39,10 @@ export default function Home() {
         <div className="container mx-auto max-w-screen-md">
           <header className="mb-3">
             <h1 className="mb-10 text-5xl font-bold text-center">
-              Power <span className="text-orange-600">Search</span>
+              Power{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-b from-orange-400 to-orange-600">
+                Search
+              </span>
             </h1>
             {state.shortcuts.length > 0 ? (
               <section className="space-y-1">
@@ -54,12 +57,7 @@ export default function Home() {
           </header>
 
           <section className="text-center space-x-2">
-            <Link
-              className="underline text-blue-500 hover:text-blue-600"
-              href="/shortcuts"
-            >
-              Manage shortcuts
-            </Link>
+            <Link href="/shortcuts">Manage shortcuts</Link>
           </section>
         </div>
       </main>
