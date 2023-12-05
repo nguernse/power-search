@@ -31,7 +31,7 @@ export default function AddShortcutDialog({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild data-testid="add-shortcut-dialog">
         {children ?? (
           <Button variant="outline" size="sm">
             {shortcut ? (
