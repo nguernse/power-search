@@ -2,10 +2,17 @@ import AutoSaveHistorySwitch from "@/components/AutoSaveHistorySwitch";
 import TopNavigation from "@/components/TopNavigation";
 import HistoryTable from "@/components/history-table";
 import PageMetadata from "@/components/page-metadata";
-import { useSearchContext } from "@/lib/context/searchContext";
+import { Button } from "@/components/ui/button";
+import {
+  useSearchContext,
+  useSearchDispatch,
+} from "@/lib/context/searchContext";
+import { CounterClockwiseClockIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
 
 export default function History() {
-  const { settings } = useSearchContext();
+  const { settings, history } = useSearchContext();
+  const dispatch = useSearchDispatch();
 
   return (
     <>
@@ -15,12 +22,36 @@ export default function History() {
           <TopNavigation />
           <header className="my-3">
             <h1 className="text-2xl font-bold">History</h1>
-            <p>View your search history here.</p>
-            <p>These are all your previous searches.</p>
+            <p>View your previous searches here.</p>
+            <p>
+              If you would like to not track your searches, update your{" "}
+              <Link
+                href="/settings"
+                className="text-blue-500 hover:text-blue-600 underline"
+              >
+                settings
+              </Link>
+              .
+            </p>
           </header>
 
           {settings.autoSaveHistory ? (
-            <HistoryTable />
+            <>
+              {history.length > 0 && (
+                <Button
+                  className="mb-2"
+                  size="sm"
+                  variant="outline"
+                  onClick={() => dispatch({ type: "CLEAR_SEARCH_HISTORY" })}
+                >
+                  <CounterClockwiseClockIcon className="w-4 h-4 mr-2" />
+                  Clear history
+                </Button>
+              )}
+              <div className="rounded-md border">
+                <HistoryTable history={history} />
+              </div>
+            </>
           ) : (
             <section className="">
               <h2 className="text-xl font-semibold">

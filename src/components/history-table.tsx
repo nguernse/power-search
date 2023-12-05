@@ -12,26 +12,19 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "./ui/button";
+import { SearchItem } from "@/types";
 
-export default function ShortcutsTable() {
-  const { history } = useSearchContext();
-  const dispatch = useSearchDispatch();
+type Props = {
+  history: SearchItem[];
+};
 
+export default function HistoryTable({ history }: Props) {
   return (
-    <Table>
+    <Table data-testid="history-table">
       <TableHeader>
         <TableRow>
           <TableHead>Query</TableHead>
           <TableHead>URL</TableHead>
-          <TableHead>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => dispatch({ type: "CLEAR_SEARCH_HISTORY" })}
-            >
-              Clear history
-            </Button>
-          </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -43,7 +36,7 @@ export default function ShortcutsTable() {
             </TableRow>
           ))
         ) : (
-          <TableRow>
+          <TableRow data-testid="empty-row">
             <TableCell colSpan={2}>No history saved yet.</TableCell>
           </TableRow>
         )}

@@ -2,6 +2,7 @@ import { PropsWithChildren } from "@/types";
 import {
   SearchContext,
   SearchDispatchContext,
+  SearchState,
   initialSearchState,
 } from "./searchContext";
 import { searchReducer } from "./searchReducers";
@@ -9,10 +10,18 @@ import { useEffect, useReducer } from "react";
 import { getLocalState } from "../utils";
 import { LOCAL_STATE_NAME } from "../constants";
 
-type SearchProviderProps = {} & PropsWithChildren;
+type SearchProviderProps = {
+  initialState?: SearchState;
+} & PropsWithChildren;
 
-export default function SearchProvider({ children }: SearchProviderProps) {
-  const [state, dispatch] = useReducer(searchReducer, initialSearchState);
+export default function SearchProvider({
+  children,
+  initialState,
+}: SearchProviderProps) {
+  const [state, dispatch] = useReducer(
+    searchReducer,
+    initialState || initialSearchState
+  );
 
   useEffect(() => {
     const initState = getLocalState(LOCAL_STATE_NAME);
