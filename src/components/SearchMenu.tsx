@@ -117,19 +117,19 @@ export default function SearchMenu() {
         <DropdownMenuGroup>
           <DropdownMenuLabel>Links</DropdownMenuLabel>
           <DropdownMenuItem>
-            <Link href="/shortcuts" className="w-full">
+            <Link href="/shortcuts" className="w-full flex items-center">
               <LightningBoltIcon className="mr-2 h-4 w-4" />
               Manage shortcuts
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href="/settings" className="w-full">
+            <Link href="/settings" className="w-full flex items-center">
               <MixerHorizontalIcon className="mr-2 h-4 w-4" />
               Settings
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href="/history" className="w-full">
+            <Link href="/history" className="w-full flex items-center">
               <LapTimerIcon className="mr-2 h-4 w-4" />
               History
             </Link>
