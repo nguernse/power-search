@@ -45,7 +45,7 @@ export default function ShortcutsTable() {
                 <Switch
                   checked={shortcut.isSelected}
                   onCheckedChange={() =>
-                    dispatch({ type: "SELECT_SHORTCUT", payload: shortcut })
+                    dispatch({ type: "SELECT_SHORTCUT", payload: shortcut.id })
                   }
                 />
                 {shortcut.name}

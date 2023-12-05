@@ -49,7 +49,7 @@ export default function SearchMenu() {
   return (
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm">
+        <Button variant="ghost" size="sm" data-testid="search-menu-button">
           <DotsVerticalIcon className="mr-1 h-4 w-4" />
           More
         </Button>
@@ -57,7 +57,7 @@ export default function SearchMenu() {
       <DropdownMenuContent align="end" className="w-[200px]">
         <DropdownMenuGroup>
           <DropdownMenuLabel>Search</DropdownMenuLabel>
-          <DropdownMenuItem>
+          <DropdownMenuItem data-testid="selected-shortcut">
             <div className="rounded-full bg-emerald-600 mr-2">
               <CheckCircledIcon className="h-4 w-4 text-white" />
             </div>
@@ -70,7 +70,7 @@ export default function SearchMenu() {
             </DropdownMenuItem>
           </AddShortcutDialog>
           <DropdownMenuSub>
-            <DropdownMenuSubTrigger>
+            <DropdownMenuSubTrigger data-testid="choose-shortcut-trigger">
               <LightningBoltIcon className="mr-2 h-4 w-4" />
               Choose shortcut
             </DropdownMenuSubTrigger>
@@ -90,10 +90,11 @@ export default function SearchMenu() {
                         onSelect={(value) => {
                           dispatch({
                             type: "SELECT_SHORTCUT",
-                            payload: shortcut,
+                            payload: value,
                           });
                           setOpen(false);
                         }}
+                        data-testid="command-item"
                       >
                         <div
                           className={cn(

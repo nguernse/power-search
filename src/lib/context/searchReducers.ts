@@ -9,7 +9,7 @@ import { SearchState, initialSearchState } from "./searchContext";
 import { DEFAULT_SHORTCUTS, LOCAL_STATE_NAME } from "../constants";
 
 export type SearchActions =
-  | { type: "SELECT_SHORTCUT"; payload: Shortcut }
+  | { type: "SELECT_SHORTCUT"; payload: Shortcut["id"] }
   | {
       type: "ADD_SHORTCUT";
       payload: ShortcutWithoutId;
@@ -75,13 +75,13 @@ export function searchReducer(
 
 function setSelectedShortcut(
   state: SearchState,
-  payload: Shortcut
+  payload: Shortcut["id"]
 ): SearchState {
   return {
     ...state,
     shortcuts: state.shortcuts.map((item) => ({
       ...item,
-      isSelected: item.id === payload.id,
+      isSelected: item.id === payload,
     })),
   };
 }

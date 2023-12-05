@@ -45,6 +45,7 @@ export default function SearchForm({ onSubmit }: Props) {
             <FormItem>
               <FormControl>
                 <Input
+                  data-testid="search-input"
                   type="search"
                   placeholder={searchPlaceholder}
                   required
