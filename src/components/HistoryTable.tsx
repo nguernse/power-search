@@ -11,8 +11,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "./ui/button";
 import { SearchItem } from "@/types";
+import Link from "./Link";
 
 type Props = {
   history: SearchItem[];
@@ -32,7 +32,9 @@ export default function HistoryTable({ history }: Props) {
           history.map((history, index) => (
             <TableRow key={index}>
               <TableCell>{history.query}</TableCell>
-              <TableCell>{history.url}</TableCell>
+              <TableCell>
+                <Link href={history.url}>{history.url}</Link>
+              </TableCell>
             </TableRow>
           ))
         ) : (
