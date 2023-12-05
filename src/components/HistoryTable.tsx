@@ -10,8 +10,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Button } from "./ui/button";
+} from "@/components/ui/Table";
+import { Button } from "./ui/Button";
 import { SearchItem } from "@/types";
 
 type Props = {

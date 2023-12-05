@@ -1,6 +1,6 @@
 import AutoSaveHistorySwitch from "@/components/AutoSaveHistorySwitch";
 import TopNavigation from "@/components/TopNavigation";
-import PageMetadata from "@/components/page-metadata";
+import PageMetadata from "@/components/PageMetadata";
 
 export default function Settings() {
   return (

@@ -11,7 +11,7 @@ import {
   ResetIcon,
 } from "@radix-ui/react-icons";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/Button";
 import {
   Command,
   CommandEmpty,
@@ -19,7 +19,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@/components/ui/Command";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,10 +31,10 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/components/ui/DropdownMenu";
 import Link from "next/link";
 import { cn, getSelectedShortcut } from "@/lib/utils";
-import AddShortcutDialog from "./add-shortcut-dialog";
+import AddShortcutDialog from "./AddShortcutDialog";
 import {
   useSearchContext,
   useSearchDispatch,

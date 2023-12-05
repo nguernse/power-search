@@ -1,10 +1,11 @@
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/Label";
+import { Switch } from "@/components/ui/Switch";
 import {
   useSearchContext,
   useSearchDispatch,
 } from "@/lib/context/searchContext";
-import { Button } from "./ui/button";
+import { Button } from "./ui/Button";
+import { LapTimerIcon } from "@radix-ui/react-icons";
 
 type Props = {
   asButton?: boolean;
@@ -25,6 +26,7 @@ export default function AutoSaveHistorySwitch({ asButton = false }: Props) {
         });
       }}
     >
+      <LapTimerIcon className="w-4 h-4 mr-2" />
       Auto-save searches
     </Button>
   ) : (

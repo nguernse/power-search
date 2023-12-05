@@ -1,5 +1,5 @@
 import { SearchItem } from "@/types";
-import HistoryTable from "./history-table";
+import HistoryTable from "./HistoryTable";
 import SearchProvider from "@/lib/context/SearchProvider";
 
 const historyItems: SearchItem[] = [

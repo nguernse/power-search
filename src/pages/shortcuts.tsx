@@ -1,6 +1,6 @@
 import TopNavigation from "@/components/TopNavigation";
-import PageMetadata from "@/components/page-metadata";
-import ShortcutsTable from "@/components/shortcuts-table";
+import PageMetadata from "@/components/PageMetadata";
+import ShortcutsTable from "@/components/ShortcutsTable";
 
 export default function Shortcuts() {
   return (

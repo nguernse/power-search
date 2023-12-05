@@ -1,6 +1,6 @@
 import { useSearchDispatch } from "@/lib/context/searchContext";
-import AddShortcutDialog from "./add-shortcut-dialog";
-import { Button } from "./ui/button";
+import AddShortcutDialog from "./AddShortcutDialog";
+import { Button } from "./ui/Button";
 
 export default function EmptyShortcuts() {
   const dispatch = useSearchDispatch();

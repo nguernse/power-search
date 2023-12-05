@@ -1,7 +1,7 @@
 import EmptyShortcuts from "@/components/EmptyShortcuts";
-import PageMetadata from "@/components/page-metadata";
-import SearchForm from "@/components/search-form";
-import SearchMenu from "@/components/search-menu";
+import PageMetadata from "@/components/PageMetadata";
+import SearchForm from "@/components/SearchForm";
+import SearchMenu from "@/components/SearchMenu";
 import {
   useSearchContext,
   useSearchDispatch,

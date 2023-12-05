@@ -1,8 +1,8 @@
 import AutoSaveHistorySwitch from "@/components/AutoSaveHistorySwitch";
 import TopNavigation from "@/components/TopNavigation";
-import HistoryTable from "@/components/history-table";
-import PageMetadata from "@/components/page-metadata";
-import { Button } from "@/components/ui/button";
+import HistoryTable from "@/components/HistoryTable";
+import PageMetadata from "@/components/PageMetadata";
+import { Button } from "@/components/ui/Button";
 import {
   useSearchContext,
   useSearchDispatch,

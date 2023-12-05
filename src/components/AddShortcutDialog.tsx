@@ -1,15 +1,15 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/Button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/components/ui/Dialog";
 import { Pencil1Icon, PlusIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import { PropsWithChildren, Shortcut } from "@/types";
-import ShortcutForm from "./shortcut-form";
+import ShortcutForm from "./ShortcutForm";
 
 type Props = {
   onCancel?: () => void;
