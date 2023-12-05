@@ -20,7 +20,7 @@ describe("Selecting a shortcut", () => {
         });
 
         cy.get('[data-testid="search-input"]').then((input) => {
-          const placeholder = input.attr("placeholder");
+          const placeholder = input.attr("placeholder") as string;
 
           expect(placeholder.includes(itemText)).to.be.true;
         });
