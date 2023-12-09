@@ -33,7 +33,9 @@ export default function HistoryTable({ history }: Props) {
             <TableRow key={index}>
               <TableCell>{history.query}</TableCell>
               <TableCell>
-                <Link href={history.url}>{history.url}</Link>
+                <Link href={history.url} target="_blank">
+                  {history.url}
+                </Link>
               </TableCell>
             </TableRow>
           ))
