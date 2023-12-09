@@ -1,8 +1,6 @@
 # About
 
-This is a tiny project that lets you customize a list of URLs to search for targeted information. Want to search for a subject on Wikipedia? What about a product on Amazon?
-
-You can directly search on the site, rather than taking the extra step of searching it with Google.
+This is a tiny project that lets you customize a list of URLs to search for targeted information using a website search parameters. For example: [https://wikipedia.org/w/index.php?search=jazz](https://wikipedia.org/w/index.php?search=jazz).
 
 This was a way for me to learn and play around with the following:
 
