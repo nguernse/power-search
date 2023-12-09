@@ -2,7 +2,7 @@ export const sharedMetadata = {
   applicationName: "Power Search",
   title: "Power Search",
   description:
-    "Power Search allows you to search the information you need the way you want, by curating customer search shortcuts.",
+    "Power Search allows you to search the information you need the way you want, by curating custom search shortcuts.",
   authors: [{ name: "Nick Guernsey", url: "https://www.github.com/nguernse" }],
   keywords: ["search", "search engine"],
 };
