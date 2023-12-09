@@ -28,7 +28,10 @@ export default function Home() {
     window.open(searchUrl, state.settings.tabPreference);
 
     if (isAutoSave) {
-      dispatch({ type: "SAVE_SEARCH_HISTORY", payload: { query, url } });
+      dispatch({
+        type: "SAVE_SEARCH_HISTORY",
+        payload: { query, url: searchUrl },
+      });
     }
   };
 
